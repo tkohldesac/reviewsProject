@@ -41,46 +41,41 @@ const reviews = [
 const prevButton = document.getElementById("prev-btn")
 const nextButton = document.getElementById("next-btn")
 const randomButton = document.getElementById("random-btn")
-// Set the content variables
-var userImage = document.getElementById("person-img").src
-var userName = document.getElementById("author").innerText
-var userJob = document.getElementById("job").innerText
-var userInfo = document.getElementById("info").innerText
+
 // Set the current id number. This will change all of the items and is a reference to const reviews above. This will (hopefully) be all I need to change to change everything when all is said and done.
-var currentUser = 4;
-
-// console.log(userImage)
-// console.log(userName)
-// console.log(userJob)
-// console.log(userInfo)
-
+var currentUser = 0;
+// Initialize values to first person in reviews.
+changeStuff();
 
 // Buttons below, these change 'currentUser' to either +1 for next, -1 for previous or a random number between 1 and 4 for random. 
 prevButton.addEventListener('click', function () {
   
-  if (currentUser <= 4 && currentUser != 1) {
+  if (currentUser <= 3 && currentUser != 0) {
     currentUser -= 1;    
-  } else if (currentUser == 1) {
-   currentUser = 4;
+  } else if (currentUser == 0) {
+   currentUser = 3;
   }
   changeStuff();
 })
 nextButton.addEventListener('click', function () {
   
-  if (currentUser < 4 && currentUser != 5) {
+  if (currentUser < 3 && currentUser != 4) {
     currentUser += 1;    
-  } else if (currentUser == 4) {
-   currentUser = 1;
+  } else if (currentUser == 3) {
+   currentUser = 0;
   }
-  
+  changeStuff();
 })
 randomButton.addEventListener('click', function () {
-  
-  currentUser = Math.floor(Math.random()*4+1)
-  
+  currentUser = Math.floor(Math.random()*4)
+  changeStuff();
 })
 
-//Changes everything based on the new currentUser variable
-function changeStuff(currentUser) {
-  return userImage = reviews[currentUser].img
+// This changes everything in the code to match the current person in the currentUser variable.
+function changeStuff() {
+  document.getElementById("person-img").src = reviews[currentUser].img
+  document.getElementById("author").innerText = reviews[currentUser].name
+  document.getElementById("job").innerText = reviews[currentUser].job
+  document.getElementById("info").innerText = reviews[currentUser].text
 }
+
